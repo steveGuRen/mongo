@@ -17,9 +17,9 @@ public class Test {
 	@Autowired
 	MongoClient mongoClient;
 	
-	@RequestMapping("/test")
+	@RequestMapping("/add")
 	@ResponseBody
-	public String test() {
+	public String add() {
 		MongoDatabase database = mongoClient.getDatabase("test");
 		MongoCollection<Document> collection = database.getCollection("test");
 		Document doc = new Document("name", "MongoDB")
@@ -29,4 +29,15 @@ public class Test {
 		collection.insertOne(doc);
 		return "success";
 	}
+	
+	@RequestMapping("/query")
+	@ResponseBody
+	public String query() {
+		MongoDatabase database = mongoClient.getDatabase("test");
+		MongoCollection<Document> collection = database.getCollection("test");
+		Document myDoc = collection.find().first();
+		return myDoc.toJson();
+	}
+	
+	
 }
