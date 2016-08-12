@@ -29,6 +29,18 @@ public class Test {
 		collection.insertOne(doc);
 		return "success";
 	}
+	@RequestMapping("/add2")
+	@ResponseBody
+	public String add2() {
+		MongoDatabase database = mongoClient.getDatabase("test");
+		MongoCollection<Document> collection = database.getCollection("test");
+		Document doc = new Document("name", "MongoDB")
+				.append("type", "database")
+//				.append("count", 1)
+				.append("info", new Document("x", 203).append("y", 102));
+		collection.insertOne(doc);
+		return doc.toJson();
+	}
 	
 	@RequestMapping("/query")
 	@ResponseBody
